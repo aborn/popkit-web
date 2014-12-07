@@ -24,7 +24,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>Struts2Example</finalName>
+		<finalName>popkit-web</finalName>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
