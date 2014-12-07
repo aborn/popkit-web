@@ -1,6 +1,9 @@
-.\#*
-*.iml
-/.idea
+/.settings
 /target
+/.project
+/.buildpath
+/.classpath
+/.idea
+*.iml
+#.gitignore
 *~
-
