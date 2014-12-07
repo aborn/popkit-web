@@ -8,5 +8,8 @@
         <action name="demo" class="org.popkit.action.DemoAction">
             <result name="success" type="freemarker">/pages/ftl/demo.ftl</result>
         </action>
+        
+        <action name="upload" class="org.popkit.action.FileUploadAction">
+        </action>
     </package>
 </struts>
