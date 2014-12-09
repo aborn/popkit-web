@@ -20,6 +20,8 @@ import java.io.Writer;
  */
 public class BaseAction extends ActionSupport implements Preparable, ServletResponseAware{
     private String info;     // 返回给html的消息
+    private String pageTitle = "popkit";
+    private String panelName = "popkit";
 
     protected HttpServletResponse response;
     protected JSONObject data;
@@ -107,5 +109,21 @@ public class BaseAction extends ActionSupport implements Preparable, ServletResp
             response.setCharacterEncoding(encoding);
         }
         response.setContentType("text/html;charset=" + encoding);
+    }
+
+    public String getPageTitle() {
+        return pageTitle;
+    }
+
+    public void setPageTitle(String pageTitle) {
+        this.pageTitle = pageTitle;
+    }
+
+    public String getPanelName() {
+        return panelName;
+    }
+
+    public void setPanelName(String panelName) {
+        this.panelName = panelName;
     }
 }
