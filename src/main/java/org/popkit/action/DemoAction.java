@@ -9,7 +9,8 @@ public class DemoAction extends BaseAction {
     private String url;
     @Override
     public String execute() throws Exception {
-        setPageTitle("good");
+        setPageTitle("Demo测试页面");
+        setPanelName("URL编码举例");
         setInfo("good luk!");
         return SUCCESS;
     }
