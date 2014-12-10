@@ -1,5 +1,6 @@
 package org.popkit.action;
 
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.popkit.datatypes.enums.StatusCodeEnum;
@@ -36,6 +37,10 @@ public class FileUploadAction extends BaseAction {
 
         String md5 = getFileMd5Value(upload);
         String md5Another = getFileMD5(upload);
+
+        InputStream is = new FileInputStream(upload);
+        String digestMD5 = DigestUtils.md5Hex(is);
+
         if (!md5.equals(md5Another)) {
             data.put("status", StatusCodeEnum.SUCCESS.getValue());
             data.put("md5", "error");
@@ -56,7 +61,15 @@ public class FileUploadAction extends BaseAction {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");
             InputStream is = new FileInputStream(file);
-            DigestUtils.md5Hex(is);
+            byte[] bytes = new byte[2048];
+            int numBytes;
+            while ((numBytes = is.read(bytes)) != -1) {
+                md.update(bytes, 0, numBytes);
+            }
+            byte[] digest = md.digest();
+            String result = new String(Hex.encodeHex(digest));
+            return result;
+            //DigestUtils.md5Hex(is);
         } catch (NoSuchAlgorithmException e) {
             // do nothing
         } catch (IOException e) {
