@@ -26,6 +26,23 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="form-group form-horizontal row col-md-offset-1">
+                            <label class="control-label col-sm-1 text-left">文件MD5:</label>
+                            <div class="col-sm-8">
+                                <input name="icon" type="text" class="form-control text-left" id="icon"
+                                       value="" placeholder="上传文件" required/>
+                            </div>
+                            <div class="col-sm-3">
+                                <div id="personFile">
+                                    <input type="file" name="upload" id="upload">
+                                    <input type="button" class="btn-primary"
+                                           onclick="ajaxFileUpload()" value="计算文件MD5值" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div>
                         <label class="text-left" id="originURL"></label>
                     </div>
@@ -44,6 +61,7 @@
 <#include "/pages/common/foot.ftl" />
 <script src="/bootstrap/js/jquery.min.js"></script>
 <script src="/bootstrap/js/bootstrap.min.js"></script>
+<script src="/bootstrap/js/ajaxfileupload.js"></script>
 <script type="text/javascript">
     var H5Prefix = "popkit://web?url=";
     function encodeUrl(obj) {
@@ -73,6 +91,29 @@
                 $('#url').val(decodeURIComponent(origin));
             }
         }
+    }
+
+    function ajaxFileUpload() {
+        $.ajaxFileUpload({
+                    url             : '/upload', //需要链接到服务器地址
+                    secureuri       : false,
+                    fileElementId   : 'upload', //文件选择框的id属性
+                    dataType        : 'json', //服务器返回的格式
+                    data            : {server : 'popkit.org', path : '/server/data'},
+                    success     : function(data,status) //相当于java中try语句块的用法
+                    {
+                        if (data.status == "success" && data.md5.length != 0) {
+                            $('#icon').val(data.md5);
+                        } else {
+                            alert(data.info);
+                        }
+                    },
+                    error : function(data, status, e) //相当于java中catch语句块的用法
+                    {
+                        $('#__content__').html('添加失败');
+                    }
+                }
+        );
     }
 </script>
 </body>
